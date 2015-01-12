@@ -14,7 +14,6 @@ public abstract class Font {
   protected Font(String path) {
     generator = new FreeTypeFontGenerator(Gdx.files.internal(path));
     parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    parameter.size = 14;
   }
   
   public void setSize(int size) {
