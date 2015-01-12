@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public abstract class Font {
   private final FreeTypeFontGenerator generator;
-  private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+  protected FreeTypeFontGenerator.FreeTypeFontParameter parameter;
   private BitmapFont font;
   private boolean generated;
 
   protected Font(String path) {
     generator = new FreeTypeFontGenerator(Gdx.files.internal(path));
     parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    parameter.size = 12;
+    parameter.size = 14;
   }
   
   public void setSize(int size) {
@@ -28,5 +28,9 @@ public abstract class Font {
       generated = true;
     }
     font.draw(batch, string, x, y);
+  }
+  
+  public void dispose() {
+    font.dispose();
   }
 }
