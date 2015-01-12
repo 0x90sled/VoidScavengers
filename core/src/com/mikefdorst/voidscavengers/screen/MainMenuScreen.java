@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mikefdorst.voidscavengers.VoidScavengers;
+import com.mikefdorst.voidscavengers.util.reference.Ref;
 
 public class MainMenuScreen implements Screen {
   
@@ -14,7 +15,7 @@ public class MainMenuScreen implements Screen {
     this.game = game;
 
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, 800, 450);
+    camera.setToOrtho(false, Ref.window.width, Ref.window.height);
   }
 
   @Override
