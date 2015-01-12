@@ -2,7 +2,7 @@ package com.mikefdorst.voidscavengers;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mikefdorst.voidscavengers.screen.MainMenuScreen;
+import com.mikefdorst.voidscavengers.screen.GameScreen;
 
 public class VoidScavengers extends Game {
 	public SpriteBatch batch;
@@ -10,7 +10,7 @@ public class VoidScavengers extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new MainMenuScreen(this));
+		setScreen(new GameScreen(this));
 	}
 
 	@Override
