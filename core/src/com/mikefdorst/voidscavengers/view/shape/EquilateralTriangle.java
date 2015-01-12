@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers.view.render;
+package com.mikefdorst.voidscavengers.view.shape;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
