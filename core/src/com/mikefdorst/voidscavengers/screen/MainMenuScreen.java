@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mikefdorst.voidscavengers.VoidScavengers;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 
@@ -12,6 +13,7 @@ public class MainMenuScreen implements Screen {
   final VoidScavengers game;
   private OrthographicCamera camera;
   private BitmapFont titleFont, infoFont;
+  
 
   public MainMenuScreen(VoidScavengers game) {
     this.game = game;
@@ -19,9 +21,12 @@ public class MainMenuScreen implements Screen {
     camera = new OrthographicCamera();
     camera.setToOrtho(false, Ref.window.width, Ref.window.height);
     
-    titleFont = new BitmapFont();
-    titleFont.scale(2f);
-    infoFont = new BitmapFont();
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Ref.font.path_to.open_sans("Regular")));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    parameter.size = 24;
+    titleFont = generator.generateFont(parameter);
+    parameter.size = 12;
+    infoFont = generator.generateFont(parameter);
   }
 
   @Override
