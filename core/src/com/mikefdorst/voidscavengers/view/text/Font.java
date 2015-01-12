@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers.util.text;
+package com.mikefdorst.voidscavengers.view.text;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;

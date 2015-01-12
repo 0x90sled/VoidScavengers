@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers.screen;
+package com.mikefdorst.voidscavengers.view.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mikefdorst.voidscavengers.VoidScavengers;
-import com.mikefdorst.voidscavengers.model.EquilateralTriangle;
+import com.mikefdorst.voidscavengers.view.render.EquilateralTriangle;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 
 public class GameScreen implements Screen {

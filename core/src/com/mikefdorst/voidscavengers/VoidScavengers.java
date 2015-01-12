@@ -2,7 +2,7 @@ package com.mikefdorst.voidscavengers;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mikefdorst.voidscavengers.screen.GameScreen;
+import com.mikefdorst.voidscavengers.view.screen.GameScreen;
 
 public class VoidScavengers extends Game {
 	public SpriteBatch batch;

@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers.util.text;
+package com.mikefdorst.voidscavengers.view.text;
 
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 
