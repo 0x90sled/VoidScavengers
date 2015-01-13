@@ -1,15 +1,24 @@
 package com.mikefdorst.voidscavengers.builder;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.mikefdorst.voidscavengers.view.shape.EquilateralTriangle;
 import com.mikefdorst.voidscavengers.view.shape.Shape;
 
 public class BodyBuilder {
   private BodyDef bodyDef;
   private FixtureDef fixtureDef;
+  private PolygonShape poly;
   
   public Body build(World world) {
+    if (poly == null) {
+      poly = new PolygonShape();
+      poly.set(new EquilateralTriangle(10).getVertices());
+      fixtureDef.shape = poly;
+    }
     Body body = world.createBody(bodyDef);
     body.createFixture(fixtureDef);
+    poly.dispose();
+    poly = null;
     return body;
   }
   
@@ -29,10 +38,9 @@ public class BodyBuilder {
   }
   
   public BodyBuilder shape(Shape shape) {
-    PolygonShape poly = new PolygonShape();
+    poly = new PolygonShape();
     poly.set(shape.getVertices());
     fixtureDef.shape = poly;
-    poly.dispose();
     return this;
   }
   
