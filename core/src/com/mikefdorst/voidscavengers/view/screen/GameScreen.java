@@ -4,10 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mikefdorst.voidscavengers.VoidScavengers;
 import com.mikefdorst.voidscavengers.builder.BodyBuilder;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
+import com.mikefdorst.voidscavengers.view.shape.EquilateralTriangle;
+
+import static com.badlogic.gdx.math.MathUtils.random;
 
 public class GameScreen implements Screen {
   
@@ -18,6 +24,8 @@ public class GameScreen implements Screen {
   private Body body;
   private float world_scale;
   
+  private Body[] triangles;
+  
   public GameScreen(VoidScavengers game) {
     this.game = game;
     
@@ -27,14 +35,22 @@ public class GameScreen implements Screen {
     world = new World(new Vector2(0, 0), true);
     renderer = new Box2DDebugRenderer();
     
+    triangles = new Body[100];
+    
+    for (int i = 0; i < 100; i++) {
+      triangles[i] = new BodyBuilder()
+        .type(BodyDef.BodyType.DynamicBody)
+        .shape(new EquilateralTriangle(5))
+        .build(world);
+      triangles[i].setTransform(random(Ref.window.width), random(Ref.window.height), random((float) (2 * Math.PI)));
+    }
+    
     body = new BodyBuilder()
       .type(BodyDef.BodyType.DynamicBody)
       .position(view_width()/2, view_height()/2)
       .build(world);
     
     /*
-      TODO: Create an array of triangular bodies with random position and orientation and scale 5.
-      TODO: Set rotation with Body#setTransform(posX,posY,rotation)
       TODO: Then implement user control - we'll need the randomly placed triangles for reference to see how fast we move.
      */
   }
