@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mikefdorst.voidscavengers.VoidScavengers;
 import com.mikefdorst.voidscavengers.builder.BodyBuilder;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
-import com.mikefdorst.voidscavengers.view.shape.EquilateralTriangle;
 
 public class GameScreen implements Screen {
   
@@ -31,10 +30,6 @@ public class GameScreen implements Screen {
     body = new BodyBuilder()
       .type(BodyDef.BodyType.DynamicBody)
       .position(view_width()/2, view_height()/2)
-      .shape(new EquilateralTriangle(10))
-      .density(1f)
-      .friction(0.5f)
-      .restitution(0.5f)
       .build(world);
   }
   
