@@ -44,4 +44,15 @@ public class EquilateralTriangle extends Shape {
       color[0], color[1], color[2]);
     return this;
   }
+  
+  public float[] getVertices() {
+    return new float[] {
+      (float) (scale * Math.sin(4 * Math.PI / 3)),
+      (float) (scale * Math.cos(4 * Math.PI / 3)),
+      (float) (scale * Math.sin(0 * Math.PI / 3)),
+      (float) (scale * Math.cos(0 * Math.PI / 3)),
+      (float) (scale * Math.sin(2 * Math.PI / 3)),
+      (float) (scale * Math.cos(2 * Math.PI / 3))
+    };
+  }
 }
