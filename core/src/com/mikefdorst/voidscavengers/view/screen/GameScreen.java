@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mikefdorst.voidscavengers.VoidScavengers;
+import com.mikefdorst.voidscavengers.builder.BodyBuilder;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 import com.mikefdorst.voidscavengers.view.shape.EquilateralTriangle;
 
@@ -27,22 +28,14 @@ public class GameScreen implements Screen {
     world = new World(new Vector2(0, 0), true);
     renderer = new Box2DDebugRenderer();
     
-    BodyDef bodyDef = new BodyDef();
-    bodyDef.type = BodyDef.BodyType.DynamicBody;
-    bodyDef.position.set(view_width()/2, view_height()/2);
-    body = world.createBody(bodyDef);
-    
-    FixtureDef fixtureDef = new FixtureDef();
-    
-    PolygonShape triangle = new PolygonShape();
-    triangle.set(new EquilateralTriangle(10).getVertices());
-    fixtureDef.shape = triangle;
-    fixtureDef.density = 1f;
-    fixtureDef.friction = 0.5f;
-    fixtureDef.restitution = 0.5f;
-    body.createFixture(fixtureDef);
-    
-    triangle.dispose();
+    body = new BodyBuilder()
+      .type(BodyDef.BodyType.DynamicBody)
+      .position(view_width()/2, view_height()/2)
+      .shape(new EquilateralTriangle(10))
+      .density(1f)
+      .friction(0.5f)
+      .restitution(0.5f)
+      .build(world);
   }
   
   private float view_height() {
