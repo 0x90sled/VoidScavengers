@@ -31,6 +31,12 @@ public class GameScreen implements Screen {
       .type(BodyDef.BodyType.DynamicBody)
       .position(view_width()/2, view_height()/2)
       .build(world);
+    
+    /*
+      TODO: Create an array of triangular bodies with random position and orientation and scale 5.
+      TODO: Set rotation with Body#setTransform(posX,posY,rotation)
+      TODO: Then implement user control - we'll need the randomly placed triangles for reference to see how fast we move.
+     */
   }
   
   private float view_height() {
