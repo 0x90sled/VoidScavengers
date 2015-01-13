@@ -8,6 +8,11 @@ public class EquilateralTriangle extends Shape {
   private float scale;
   private Color[] color;
   
+  public EquilateralTriangle(float scale) {
+    setScale(scale);
+    setColor(Color.WHITE);
+  }
+  
   public EquilateralTriangle(float scale, Color color) {
     setScale(scale);
     setColor(color);
