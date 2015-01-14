@@ -7,6 +7,7 @@ import static com.badlogic.gdx.math.MathUtils.sin;
 
 public class Player {
   public Body body;
+  private String last_recorded_heading;
   
   public void moveForward(float force) {
     body.applyForceToCenter(sin(body.getAngle()) * -force, cos(body.getAngle()) * force, true);
@@ -25,18 +26,20 @@ public class Player {
   }
   
   public String getHeading() {
-    float sin = sin(body.getAngle());
-    float cos = cos(body.getAngle());
-    float root2over2 = (float) Math.sqrt(2)/2;
-    if (cos > root2over2) {
-      return "N";
+    final float root2over2 = (float) Math.sqrt(2)/2;
+    
+    if (!body.isAwake()) {
+      return last_recorded_heading;
     }
-    if (sin > root2over2) {
-      return "W";
+    if (cos(body.getAngle()) > root2over2) {
+      return last_recorded_heading = "N";
     }
-    if (sin < -root2over2) {
-      return "E";
+    if (sin(body.getAngle()) > root2over2) {
+      return last_recorded_heading = "W";
     }
-    return "S";
+    if (sin(body.getAngle()) < -root2over2) {
+      return last_recorded_heading = "E";
+    }
+    return last_recorded_heading = "S";
   }
 }
