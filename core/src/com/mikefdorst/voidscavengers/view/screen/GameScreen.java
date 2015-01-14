@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -72,6 +73,7 @@ public class GameScreen implements Screen {
     
     batch.begin();
     font.draw(batch, "player heading: " + player.getHeading(), 20, 430);
+    font.draw(batch, "world scale: " + Float.toString(world_scale), 20, 410);
     batch.end();
     
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -85,6 +87,14 @@ public class GameScreen implements Screen {
     }
     if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
       player.turnLeft(100);
+    }
+    if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) {
+      world_scale = MathUtils.clamp(world_scale - 0.005f, 0.15f, 1);
+      camera.setToOrtho(false, view_width(), view_height());
+    }
+    if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) {
+      world_scale = MathUtils.clamp(world_scale + 0.005f, 0.15f, 1);
+      camera.setToOrtho(false, view_width(), view_height());
     }
   }
 
