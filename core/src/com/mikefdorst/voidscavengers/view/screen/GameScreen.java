@@ -6,10 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.mikefdorst.voidscavengers.builder.BodyBuilder;
 import com.mikefdorst.voidscavengers.controller.Player;
 import com.mikefdorst.voidscavengers.game.VoidScavengers;
@@ -30,7 +27,7 @@ public class GameScreen implements Screen {
   private DebugTextView debugTextView;
   private float angle_last_frame;
   
-  private Body[] triangles;
+  private Body[] triangles, boundingBox;
   
   public GameScreen(VoidScavengers game) {
     this.game = game;
@@ -42,21 +39,39 @@ public class GameScreen implements Screen {
     renderer = new Box2DDebugRenderer();
     debugTextView = new DebugTextView(10);
     
+    boundingBox = new Body[4];
     triangles = new Body[100];
     
     for (int i = 0; i < 100; i++) {
       triangles[i] = new BodyBuilder()
         .type(BodyDef.BodyType.DynamicBody)
+        .restitution(0.5f)
         .build(world);
       triangles[i].setTransform(random(Ref.window.width), random(Ref.window.height), random((float) (2 * Math.PI)));
     }
-
+    
+    {
+      PolygonShape box = new PolygonShape();
+      for (int i = 0; i < 4; i++) {
+        float width =  i % 2 == 0 ? Ref.window.width / 2  : 0;
+        float height = i % 2 == 1 ? Ref.window.height / 2 : 0;
+        float x = i == 3 ? Ref.window.width : width;
+        float y = i == 2 ? Ref.window.height : height;
+        box.setAsBox(width, height);
+        boundingBox[0] = new BodyBuilder()
+          .position(x, y)
+          .shape(box)
+          .build(world);
+      }
+    }
+    
     player = new Player();
     player.body = new BodyBuilder()
       .type(BodyDef.BodyType.DynamicBody)
-      .position(view_width()/2, view_height()/2)
       .shape(new EquilateralTriangle(10))
+      .position(view_width() / 2, view_height() / 2)
       .density(1)
+      .restitution(0.5f)
       .build(world);
   }
 
