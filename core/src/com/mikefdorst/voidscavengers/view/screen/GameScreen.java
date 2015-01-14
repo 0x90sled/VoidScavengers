@@ -84,10 +84,6 @@ public class GameScreen implements Screen {
     world.step(1/60f, 6, 2);
     
     debugTextView.setLine(0, "player heading: " + player.getHeading());
-    debugTextView.setLine(1, "player torque: " +
-      Float.toString((player.body.getAngle() - angle_last_frame) * 30/(float)Math.PI));
-    angle_last_frame = player.body.getAngle();
-    debugTextView.setLine(2, "player position: " + player.body.getPosition().toString());
     debugTextView.draw();
     
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
