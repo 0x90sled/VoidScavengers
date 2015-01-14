@@ -23,4 +23,20 @@ public class Player {
   public void turnLeft(float force) {
     body.applyAngularImpulse(force, true);
   }
+  
+  public String getHeading() {
+    float sin = sin(body.getAngle());
+    float cos = cos(body.getAngle());
+    float root2over2 = (float) Math.sqrt(2)/2;
+    if (cos > root2over2) {
+      return "N";
+    }
+    if (sin > root2over2) {
+      return "W";
+    }
+    if (sin < -root2over2) {
+      return "E";
+    }
+    return "S";
+  }
 }
