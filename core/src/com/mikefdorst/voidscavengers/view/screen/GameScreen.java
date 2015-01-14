@@ -71,10 +71,7 @@ public class GameScreen implements Screen {
     world.step(1/60f, 6, 2);
     
     batch.begin();
-    font.draw(batch, "body angle: " + Float.toString(player.body.getAngle() / (float) Math.PI) + "pi", 20, 430);
-    font.draw(batch, "sin(body angle): " + Float.toString(sin(player.body.getAngle())), 20, 410);
-    font.draw(batch, "cos(body angle): " + Float.toString(cos(player.body.getAngle())), 20, 390);
-    font.draw(batch, "player heading: " + player.getHeading(), 20, 370);
+    font.draw(batch, "player heading: " + player.getHeading(), 20, 430);
     batch.end();
     
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
