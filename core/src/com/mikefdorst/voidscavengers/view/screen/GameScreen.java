@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mikefdorst.voidscavengers.builder.BodyBuilder;
 import com.mikefdorst.voidscavengers.controller.Player;
@@ -89,9 +90,6 @@ public class GameScreen implements Screen {
     debugTextView.setLine(2, "player position: " + player.body.getPosition().toString());
     debugTextView.draw();
     
-    camera.position.set(player.body.getPosition(), 0);
-    camera.update();
-    
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
       player.moveForward(25000);
     }
@@ -107,17 +105,22 @@ public class GameScreen implements Screen {
     if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) {
       world_scale = MathUtils.clamp(world_scale - 0.005f, 0.15f, 1);
       camera.setToOrtho(false, view_width(), view_height());
-      camera.position.set(player.body.getPosition(), 0);
-      camera.update();
     }
     if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) {
       world_scale = MathUtils.clamp(world_scale + 0.005f, 0.15f, 1);
       camera.setToOrtho(false, view_width(), view_height());
-      camera.position.set(player.body.getPosition(), 0);
-      camera.update();
     }
+    camera.position.set(computeCameraPosition());
+    camera.update();
   }
 
+  private Vector3 computeCameraPosition() {
+    Vector3 pos = new Vector3(player.body.getPosition(), 0);
+    pos.x = MathUtils.clamp(pos.x, view_width() / 2, Ref.window.width - view_width() / 2);
+    pos.y = MathUtils.clamp(pos.y, view_height() / 2, Ref.window.height - view_height() / 2);
+    return pos;
+  }
+  
   private float view_height() {
     return Ref.window.height * world_scale;
   }
