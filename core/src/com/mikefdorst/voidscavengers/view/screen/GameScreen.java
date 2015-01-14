@@ -89,6 +89,9 @@ public class GameScreen implements Screen {
     debugTextView.setLine(2, "player position: " + player.body.getPosition().toString());
     debugTextView.draw();
     
+    camera.position.set(player.body.getPosition(), 0);
+    camera.update();
+    
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
       player.moveForward(25000);
     }
@@ -104,10 +107,14 @@ public class GameScreen implements Screen {
     if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) {
       world_scale = MathUtils.clamp(world_scale - 0.005f, 0.15f, 1);
       camera.setToOrtho(false, view_width(), view_height());
+      camera.position.set(player.body.getPosition(), 0);
+      camera.update();
     }
     if (Gdx.input.isKeyPressed(Input.Keys.MINUS)) {
       world_scale = MathUtils.clamp(world_scale + 0.005f, 0.15f, 1);
       camera.setToOrtho(false, view_width(), view_height());
+      camera.position.set(player.body.getPosition(), 0);
+      camera.update();
     }
   }
 
