@@ -47,7 +47,6 @@ public class GameScreen implements Screen {
     for (int i = 0; i < 100; i++) {
       triangles[i] = new BodyBuilder()
         .type(BodyDef.BodyType.DynamicBody)
-        .shape(new EquilateralTriangle(5))
         .build(world);
       triangles[i].setTransform(random(Ref.window.width), random(Ref.window.height), random((float) (2 * Math.PI)));
     }
@@ -56,6 +55,7 @@ public class GameScreen implements Screen {
     player.body = new BodyBuilder()
       .type(BodyDef.BodyType.DynamicBody)
       .position(view_width()/2, view_height()/2)
+      .shape(new EquilateralTriangle(10))
       .density(1)
       .build(world);
   }

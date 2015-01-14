@@ -11,8 +11,8 @@ public class BodyBuilder {
   
   public Body build(World world) {
     if (poly == null) {
-      poly.set(new EquilateralTriangle(10).getVertices());
       poly = newPoly();
+      poly.setAsBox(5, 5);
       fixtureDef.shape = poly;
     }
     Body body = world.createBody(bodyDef);
