@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
     player = new Player();
     player.body = new BodyBuilder()
       .type(BodyDef.BodyType.DynamicBody)
-      .shape(new EquilateralTriangle(10))
+      .shape(new EquilateralTriangle(15))
       .position(view_width() / 2, view_height() / 2)
       .density(1)
       .restitution(0.5f)
@@ -90,16 +90,16 @@ public class GameScreen implements Screen {
     debugTextView.draw();
     
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-      player.moveForward(1000);
+      player.moveForward(25000);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-      player.moveBackward(1000);
+      player.moveBackward(12500);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-      player.turnRight(100);
+      player.turnRight(1000);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-      player.turnLeft(100);
+      player.turnLeft(1000);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.EQUALS)) {
       world_scale = MathUtils.clamp(world_scale - 0.005f, 0.15f, 1);
