@@ -4,22 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mikefdorst.voidscavengers.game.VoidScavengers;
 import com.mikefdorst.voidscavengers.builder.BodyBuilder;
 import com.mikefdorst.voidscavengers.controller.Player;
+import com.mikefdorst.voidscavengers.game.VoidScavengers;
+import com.mikefdorst.voidscavengers.util.debug.DebugTextView;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 import com.mikefdorst.voidscavengers.view.shape.EquilateralTriangle;
-import com.mikefdorst.voidscavengers.view.text.DefaultFont;
-import com.mikefdorst.voidscavengers.view.text.Font;
 
-import static com.badlogic.gdx.math.MathUtils.*;
+import static com.badlogic.gdx.math.MathUtils.random;
 
 public class GameScreen implements Screen {
   
@@ -29,8 +27,8 @@ public class GameScreen implements Screen {
   private Box2DDebugRenderer renderer;
   private Player player;
   private float world_scale;
-  private Font font;
-  private SpriteBatch batch;
+  private DebugTextView debugTextView;
+  private float angle_last_frame;
   
   private Body[] triangles;
   
@@ -42,11 +40,9 @@ public class GameScreen implements Screen {
     camera.setToOrtho(false, view_width(), view_height());
     world = new World(new Vector2(0, 0), true);
     renderer = new Box2DDebugRenderer();
-    batch = new SpriteBatch();
+    debugTextView = new DebugTextView(10);
     
     triangles = new Body[100];
-
-    font = new DefaultFont();
     
     for (int i = 0; i < 100; i++) {
       triangles[i] = new BodyBuilder()
@@ -71,10 +67,12 @@ public class GameScreen implements Screen {
     renderer.render(world, camera.combined);
     world.step(1/60f, 6, 2);
     
-    batch.begin();
-    font.draw(batch, "player heading: " + player.getHeading(), 20, 430);
-    font.draw(batch, "world scale: " + Float.toString(world_scale), 20, 410);
-    batch.end();
+    debugTextView.setLine(0, "player heading: " + player.getHeading());
+    debugTextView.setLine(1, "player torque: " +
+      Float.toString((player.body.getAngle() - angle_last_frame) * 30/(float)Math.PI));
+    angle_last_frame = player.body.getAngle();
+    debugTextView.setLine(2, "player position: " + player.body.getPosition().toString());
+    debugTextView.draw();
     
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
       player.moveForward(1000);
@@ -133,8 +131,7 @@ public class GameScreen implements Screen {
 
   @Override
   public void dispose() {
-    font.dispose();
-    batch.dispose();
+    debugTextView.dispose();
     renderer.dispose();
     world.dispose();
     game.dispose();
