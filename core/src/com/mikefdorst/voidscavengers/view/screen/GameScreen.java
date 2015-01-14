@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mikefdorst.voidscavengers.VoidScavengers;
 import com.mikefdorst.voidscavengers.builder.BodyBuilder;
+import com.mikefdorst.voidscavengers.controller.Player;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 import com.mikefdorst.voidscavengers.view.shape.EquilateralTriangle;
 import com.mikefdorst.voidscavengers.view.text.DefaultFont;
@@ -25,7 +26,7 @@ public class GameScreen implements Screen {
   private OrthographicCamera camera;
   private World world;
   private Box2DDebugRenderer renderer;
-  private Body player;
+  private Player player;
   private float world_scale;
   private Font font;
   private SpriteBatch batch;
@@ -53,8 +54,9 @@ public class GameScreen implements Screen {
         .build(world);
       triangles[i].setTransform(random(Ref.window.width), random(Ref.window.height), random((float) (2 * Math.PI)));
     }
-    
-    player = new BodyBuilder()
+
+    player = new Player();
+    player.body = new BodyBuilder()
       .type(BodyDef.BodyType.DynamicBody)
       .position(view_width()/2, view_height()/2)
       .density(1)
@@ -69,22 +71,22 @@ public class GameScreen implements Screen {
     world.step(1/60f, 6, 2);
     
     batch.begin();
-    font.draw(batch, "player angle: " + Float.toString(player.getAngle() / (float) Math.PI) + "pi", 20, 430);
-    font.draw(batch, "sin(player angle): " + Float.toString(sin(player.getAngle())), 20, 410);
-    font.draw(batch, "cos(player angle): " + Float.toString(cos(player.getAngle())), 20, 390);
+    font.draw(batch, "body angle: " + Float.toString(player.body.getAngle() / (float) Math.PI) + "pi", 20, 430);
+    font.draw(batch, "sin(body angle): " + Float.toString(sin(player.body.getAngle())), 20, 410);
+    font.draw(batch, "cos(body angle): " + Float.toString(cos(player.body.getAngle())), 20, 390);
     batch.end();
     
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-      player.applyForceToCenter(sin(player.getAngle())*-1000, cos(player.getAngle())*1000, true);
+      player.moveForward(1000);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-      player.applyForceToCenter(sin(player.getAngle()) * 1000, cos(player.getAngle()) * -1000, true);
+      player.moveBackward(1000);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-      player.applyAngularImpulse(-100, true);
+      player.turnRight(100);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-      player.applyAngularImpulse(100, true);
+      player.turnLeft(100);
     }
   }
 
