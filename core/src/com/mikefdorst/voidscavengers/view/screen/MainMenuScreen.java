@@ -3,7 +3,7 @@ package com.mikefdorst.voidscavengers.view.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.mikefdorst.voidscavengers.VoidScavengers;
+import com.mikefdorst.voidscavengers.game.VoidScavengers;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 import com.mikefdorst.voidscavengers.view.text.DefaultFont;
 import com.mikefdorst.voidscavengers.view.text.Font;

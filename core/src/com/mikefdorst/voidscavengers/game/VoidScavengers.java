@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers;
+package com.mikefdorst.voidscavengers.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

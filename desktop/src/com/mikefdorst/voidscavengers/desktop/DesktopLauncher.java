@@ -2,7 +2,7 @@ package com.mikefdorst.voidscavengers.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mikefdorst.voidscavengers.VoidScavengers;
+import com.mikefdorst.voidscavengers.game.VoidScavengers;
 import com.mikefdorst.voidscavengers.util.application.MenuBar;
 import com.mikefdorst.voidscavengers.util.reference.Ref;
 
