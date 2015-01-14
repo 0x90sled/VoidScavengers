@@ -44,6 +44,12 @@ public class BodyBuilder {
     return this;
   }
   
+  public BodyBuilder shape(PolygonShape shape) {
+    poly = shape;
+    fixtureDef.shape = poly;
+    return this;
+  }
+  
   public BodyBuilder density(float density) {
     fixtureDef.density = density;
     return this;
