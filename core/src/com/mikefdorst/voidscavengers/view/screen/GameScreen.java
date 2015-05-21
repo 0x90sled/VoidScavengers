@@ -47,6 +47,8 @@ public class GameScreen implements Screen {
       debris[i] = new BodyBuilder()
         .type(BodyDef.BodyType.DynamicBody)
         .restitution(0.5f)
+        .friction(0.3f)
+        .density(1)
         .build(world);
       debris[i].setTransform(random(Ref.window.width), random(Ref.window.height), random((float) (2 * Math.PI)));
     }
