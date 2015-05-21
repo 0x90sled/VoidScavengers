@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
   private DebugTextView debugTextView;
   private float angle_last_frame;
   
-  private Body[] triangles, boundingBox;
+  private Body[] debris, boundingBox;
   
   public GameScreen(VoidScavengers game) {
     this.game = game;
@@ -41,14 +41,14 @@ public class GameScreen implements Screen {
     debugTextView = new DebugTextView(10);
     
     boundingBox = new Body[4];
-    triangles = new Body[100];
+    debris = new Body[100];
     
     for (int i = 0; i < 100; i++) {
-      triangles[i] = new BodyBuilder()
+      debris[i] = new BodyBuilder()
         .type(BodyDef.BodyType.DynamicBody)
         .restitution(0.5f)
         .build(world);
-      triangles[i].setTransform(random(Ref.window.width), random(Ref.window.height), random((float) (2 * Math.PI)));
+      debris[i].setTransform(random(Ref.window.width), random(Ref.window.height), random((float) (2 * Math.PI)));
     }
     
     {
